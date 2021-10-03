@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PageHeader from './common/PageHeader';
 
 class About extends Component {
     constructor(props) {
@@ -8,11 +9,7 @@ class About extends Component {
     render() { 
         return ( 
             <div className='container'>
-                <div className='row'>
-                    <div className='col-12 mt-4'>
-                        <h1> Real App About Page</h1>
-                    </div>
-                </div>
+                <PageHeader title='Real App About page'/>
                 <div className='row'>
                     <div className='col-12'>
                         <p> This is my About Page</p>

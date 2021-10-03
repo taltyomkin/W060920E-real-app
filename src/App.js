@@ -1,9 +1,10 @@
 import './App.css';
 import NavBar from './component/NavBar';
 import Footer from './component/Footer';
-import {Switch, Route} from 'react-router-dom';
 import About from './component/About';
 import Home from './component/Home';
+import SignUp from './component/SignUp';
+import {Switch, Route} from 'react-router-dom';
 
 function App() {
   return (
@@ -13,8 +14,9 @@ function App() {
       </header>
       <main className='container-fluid flex-fill'>
         <Switch>
-          <Route path='/' exact component={Home} />
+          <Route path='/signup' component={SignUp} />
           <Route path='/about' component={About} />
+          <Route path='/' exact component={Home} />
         </Switch>
       </main>
       <footer>

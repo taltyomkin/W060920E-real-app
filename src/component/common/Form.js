@@ -1,29 +1,62 @@
 import React, { Component } from 'react';
 import Input from './Input';
+import Joi from 'joi-browser';
 
 class Form extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {}
+
+    validateProperty = ({name, value}) => {
+        const obj = {[name]: value}
+        const schema = {[name]: this.schema[name]}
+        const {error} = Joi.validate(obj, schema);
     }
+
+
+    validate = () => {
+        const {error} = Joi.validate(this.state.data, this.schema, { abortEarly: false});
+
+        if(!error) return null;
+
+        const errors = {};
+        for(let item of error.details) {
+            errors[item.path[0]] = item.message
+        }
+        return errors;
+    }
+
     handleSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state);
+        const errors = this.validate();
+        // if(errors) {
+        //     this.setState({errors})
+        // } else{
+        //     this.setState({errors:{}})
+        // }
+        this.setState({errors: errors || {}})
+
+        if(errors) return
+
+        this.doSubmit()
     }
-    handleChange = ({ currentTarget }) => {
+    handleChange = ({ currentTarget: input }) => {
+        const errors = { ...this.state.errors}
+        const errorMessage = this.validateProperty(input)
+
+
         const data = { ...this.state.data };
-        data[currentTarget.name] = currentTarget.value;
+        data[input.name] = input.value;
         this.setState({ data })
 
     }
     renderInput(name, label, type = 'text') {
-        const { data } = this.state;
+        const { data, errors } = this.state;
         return <Input
             type={type}
             name={name}
             label={label}
             onChange={this.handleChange}
             value={data[name]}
+            error={errors[name]}
+            
         />
     }
 

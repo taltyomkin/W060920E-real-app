@@ -1,6 +1,7 @@
 import React from 'react';
 import PageHeader from './common/PageHeader';
 import Form from './common/Form';
+import Joi from 'joi-browser';
 
 class SignUp extends Form {
     constructor(props) {
@@ -10,9 +11,18 @@ class SignUp extends Form {
                 name:'',
                 password:'',
                 email:'',
-            }
+            },
+            errors: {},
          }
+    }
+    schema = {
+        email: Joi.string().required().email().label('Email'),
+        password: Joi.string().required().min(6).label('Password'),
+        name: Joi.string().required().min(2).label('Name'),
+    }
 
+    doSubmit() {
+        console.log('Submited', this.state)
     }
 
     render() { 

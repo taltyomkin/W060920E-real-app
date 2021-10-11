@@ -2,6 +2,8 @@ import React from 'react';
 import PageHeader from './common/PageHeader';
 import Form from './common/Form';
 import Joi from 'joi-browser';
+import http from '../services/httpService';
+import {apiUrl} from "../config.json";
 
 class SignUp extends Form {
     constructor(props) {
@@ -22,7 +24,10 @@ class SignUp extends Form {
     }
 
     doSubmit() {
-        console.log('Submited', this.state)
+        console.log('Submited', this.state);
+        const data = {...this.state.data, biz:false};
+        // data.biz = false;
+        http.post(`${apiUrl}/users`)
     }
 
     render() { 

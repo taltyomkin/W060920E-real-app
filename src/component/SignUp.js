@@ -4,6 +4,7 @@ import Form from './common/Form';
 import Joi from 'joi-browser';
 import http from '../services/httpService';
 import {apiUrl} from "../config.json";
+import { toast } from 'react-toastify';
 
 class SignUp extends Form {
     constructor(props) {
@@ -23,12 +24,27 @@ class SignUp extends Form {
         name: Joi.string().required().min(2).label('Name'),
     }
 
-    doSubmit() {
+    async doSubmit() {
+        const {history} = this.props;
         console.log('Submited', this.state);
         const data = {...this.state.data, biz:false};
-        // data.biz = false;
-        http.post(`${apiUrl}/users`)
+        try{
+            await http.post(`${apiUrl}/users`, data);
+            toast('welcome to my app good job!!!');
+            history.replace('/');
+        } catch(error){
+            console.log(error.response.data);
+            this.setState({
+                errors:{
+                    ...this.state.errors,
+                    email:"this email is allredy taken",
+                }
+            })
+        }
+
     }
+
+        
 
     render() { 
         return ( 

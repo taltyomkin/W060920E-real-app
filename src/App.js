@@ -5,10 +5,12 @@ import About from './component/About';
 import Home from './component/Home';
 import SignUp from './component/SignUp';
 import {Switch, Route} from 'react-router-dom';
-
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
   return (
     <div className="d-flex flex-column min-vh-100">
+      <ToastContainer />
       <header>
         <NavBar />
       </header>

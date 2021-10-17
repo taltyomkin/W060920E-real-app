@@ -7,6 +7,7 @@ class NavBar extends Component {
         this.state = {  }
     }
     render() { 
+      const {user} = this.props;
         return ( 
             <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
                 <div className="container">
@@ -24,12 +25,23 @@ class NavBar extends Component {
                       </li>
                     </ul>
                     <ul className="navbar-nav ml-auto">
-                      <li className="nav-item">
-                        <NavLink className="nav-link" aria-current="page" to="/signin">signin</NavLink>
-                      </li>
-                      <li className="nav-item">
-                        <NavLink className="nav-link" to="signup">signup</NavLink>
-                      </li>
+                      {!user && (
+                        <>
+                          <li className="nav-item">
+                          <NavLink className="nav-link" aria-current="page" to="/signin">signin</NavLink>
+                          </li>
+                          <li className="nav-item">
+                            <NavLink className="nav-link" to="/signup">signup</NavLink>
+                          </li>
+                        </>
+                      )}
+                      {user && (
+                        <> 
+                          <li className="nav-item">
+                            <NavLink className="nav-link" to="/logout">Logout</NavLink>
+                          </li>
+                        </>
+                      )}
                     </ul>
                   </div>
                 </div>
@@ -38,4 +50,5 @@ class NavBar extends Component {
     }
 }
  
+
 export default NavBar;

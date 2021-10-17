@@ -31,7 +31,7 @@ class SignUp extends Form {
         try{
             await http.post(`${apiUrl}/users`, data);
             toast('welcome to my app good job!!!');
-            history.replace('/');
+            history.replace('/signin');
         } catch(error){
             console.log(error.response.data);
             this.setState({

@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import userService from '../services/userService';
 import { Redirect } from 'react-router';
 
-class SignUp extends Form {
+class BizSignUp extends Form {
     constructor(props) {
         super(props);
         this.state = { 
@@ -28,12 +28,13 @@ class SignUp extends Form {
 
     async doSubmit() {
         const {history} = this.props;
-        console.log('Submited', this.state);
-        const data = {...this.state.data, biz:false};
+        const data = {...this.state.data, biz:true};
+        console.log('Submited', data);
         try{
             await http.post(`${apiUrl}/users`, data);
-            toast('welcome to my app good job!!!');
-            history.replace('/signin');
+            await userService.login(data.email, data.password);
+            console.log('user created');
+            window.location = "/create-card"
         } catch(error){
             console.log(error.response.data);
             this.setState({
@@ -54,14 +55,14 @@ class SignUp extends Form {
         }
         return ( 
             <div className='container'>
-                <PageHeader title={'Real App SignUp page'} />
+                <PageHeader title={'Business registration form'} />
             <div className='row'>
                 <div className='col-12'>
                     <form onSubmit={this.handleSubmit} autoComplete='off'>
                         {this.renderInput('email', 'Email', 'email')}
                         {this.renderInput('password', 'Password', 'password')}
                         {this.renderInput('name', 'Name')}
-                        {this.renderButton('SignUp')}
+                        {this.renderButton('next')}
                     </form>
                 </div>
             </div>
@@ -71,4 +72,4 @@ class SignUp extends Form {
     }
 }
  
-export default SignUp;
+export default BizSignUp;

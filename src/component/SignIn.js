@@ -3,6 +3,7 @@ import Joi from 'joi-browser';
 import Form from './common/Form';
 import PageHeader from './common/PageHeader';
 import userService from '../services/userService';
+import { Redirect } from 'react-router';
 
 class SignIn extends Form {
     state = {
@@ -35,6 +36,9 @@ class SignIn extends Form {
 
     
     render() {
+        if(userService.getCurrentUser()){
+            return <Redirect to="/" />
+        }
         return(
             <div className='container'>
                 <PageHeader title={'Sign in to Real App'} />

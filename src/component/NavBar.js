@@ -20,9 +20,11 @@ class NavBar extends Component {
                       <li className="nav-item">
                         <NavLink className="nav-link" aria-current="page" to="/about">About</NavLink>
                       </li>
+                      {user && (
                       <li className="nav-item">
-                        <NavLink className="nav-link" to="/cards">Cards</NavLink>
+                        <NavLink className="nav-link" to="/my-cards">My Cards</NavLink>
                       </li>
+                      )}
                     </ul>
                     <ul className="navbar-nav ml-auto">
                       {!user && (
@@ -32,6 +34,9 @@ class NavBar extends Component {
                           </li>
                           <li className="nav-item">
                             <NavLink className="nav-link" to="/signup">signup</NavLink>
+                          </li>
+                          <li className="nav-item">
+                            <NavLink className="nav-link" to="/biz-signup">Business</NavLink>
                           </li>
                         </>
                       )}
